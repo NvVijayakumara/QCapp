@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\gentelella-master\**" />
+    <Content Remove="wwwroot\gentelella-master\**" />
+    <EmbeddedResource Remove="wwwroot\gentelella-master\**" />
+    <None Remove="wwwroot\gentelella-master\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\gentelella\vendors\icheck-bootstrap\LICENSE" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
