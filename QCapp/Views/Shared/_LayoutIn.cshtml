@@ -12,22 +12,34 @@
 
     <!-- Bootstrap -->
     <link href="~/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Font Awesome -->
     <link href="~/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
     <!-- NProgress -->
     <link href="~/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    
     <!-- iCheck -->
     <link href="~/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
     <!-- bootstrap-progressbar -->
     <link href="~/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    
     <!-- JQVMap -->
     <link href="~/gentelella/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    
     <!-- bootstrap-daterangepicker -->
     <link href="~/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Switchery -->
+    <link href="~/gentelella/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+
+    <!-- Dropzone.js -->
+    <link href="~/gentelella/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="~/gentelella/build/css/custom.min.css" rel="stylesheet">
+
 </head>
 
 <body class="nav-md">
@@ -61,7 +73,20 @@
                             @* <h3>General</h3> *@
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> 1. Loans <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-home"></i> 1. Admin <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Company/Create">1. Add Company</a></li>
+                                        <li><a href="/User/Create">2. User Management</a></li>
+                                        <li><a href="/Client/Create">3. Client Creation</a></li>
+                                        <li><a href="/Document/Create">4. Document Classification</a></li>
+                                        <li><a href="/Field/Create">5. Data Extraction List</a></li>
+                                        <li><a href="/Questionnaire/Upload">6. Questionnaire Creation</a></li>
+                                        <li><a href="/Workflow/Create">7. Workflow Setup</a></li>
+                                        <li><a href="/Billing/Summary">8. Billing</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 2. Loans <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="index.html">1. Upload Loans</a></li>
                                         <li><a href="index2.html">2. Loan Import Log</a></li>
@@ -70,7 +95,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-sitemap"></i> 2. Audits <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-sitemap"></i> 3. Audits <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="form.html">1. Audits</a></li>
                                         <li><a href="form_advanced.html">2. Add Audit</a></li>
@@ -89,7 +114,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-desktop"></i> 3. Loan Review <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-desktop"></i> 4. Loan Review <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="general_elements.html">1. Loans for Audit</a></li>
                                         <li><a href="media_gallery.html">2. Loan Questionnaire</a></li>
@@ -100,7 +125,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-table"></i> 4. Communication <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-table"></i> 5. Communication <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="tables.html">1. Exceptions</a></li>
                                         <li><a href="tables_dynamic.html">2. Modify Exceptions</a></li>
@@ -110,14 +135,14 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-bar-chart-o"></i> 5. Reports <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-bar-chart-o"></i> 6. Reports <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="chartjs.html">1. Business Objects</a></li>
                                         <li><a href="chartjs2.html">2. In-App Reporting</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-clone"></i>6. ACES support <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-clone"></i>7. ACES support <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="fixed_sidebar.html">1. Contact ACES</a></li>
                                         <li><a href="fixed_footer.html">2. ACES Knowledge Center</a></li>
@@ -128,7 +153,6 @@
 
                     </div>
                     <!-- /sidebar menu -->
-                    
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
                         <a data-toggle="tooltip" data-placement="top" title="Settings">
@@ -240,60 +264,91 @@
                 </div>
             </div>
             <!-- /top navigation -->
-            
+
             <!-- page content -->
             <div class="right_col" role="main">
-                @RenderBody()
-            </div>
-            <!-- /page content -->
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    &copy; 2023 - QCapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <span class="section">@ViewBag.Title</span>
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
+            </div>
         </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                &copy; 2023 - QCapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
 
     <!-- jQuery -->
     <script src="~/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    
     <!-- Bootstrap -->
     <script src="~/gentelella/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
     <!-- FastClick -->
     <script src="~/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+    
     <!-- NProgress -->
     <script src="~/gentelella/vendors/nprogress/nprogress.js"></script>
+    
     <!-- Chart.js -->
     <script src="~/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
+    
     <!-- gauge.js -->
     <script src="~/gentelella/vendors/gauge.js/dist/gauge.min.js"></script>
+    
     <!-- bootstrap-progressbar -->
     <script src="~/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    
     <!-- iCheck -->
     <script src="~/gentelella/vendors/iCheck/icheck.min.js"></script>
+    
     <!-- Skycons -->
     <script src="~/gentelella/vendors/skycons/skycons.js"></script>
+    
     <!-- Flot -->
     <script src="~/gentelella/vendors/Flot/jquery.flot.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.time.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.resize.js"></script>
+    
     <!-- Flot plugins -->
     <script src="~/gentelella/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
     <script src="~/gentelella/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
     <script src="~/gentelella/vendors/flot.curvedlines/curvedLines.js"></script>
+    
     <!-- DateJS -->
     <script src="~/gentelella/vendors/DateJS/build/date.js"></script>
+    
     <!-- JQVMap -->
     <script src="~/gentelella/vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="~/gentelella/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="~/gentelella/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    
     <!-- bootstrap-daterangepicker -->
     <script src="~/gentelella/vendors/moment/min/moment.min.js"></script>
     <script src="~/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Switchery -->
+    <script src="~/gentelella/vendors/switchery/dist/switchery.min.js"></script>
+
+    <script src="~/gentelella/vendors/validator/validator.js"></script>
+
+    <!-- Dropzone.js -->
+    <script src="~/gentelella/vendors/dropzone/dist/min/dropzone.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="~/gentelella/build/js/custom.min.js"></script>

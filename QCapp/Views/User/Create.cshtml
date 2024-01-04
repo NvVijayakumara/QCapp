@@ -1,0 +1,149 @@
+﻿@model QCapp.Models.SchemaViewModel.UserViewModel
+
+@{
+    ViewData["Title"] = (Model.UserId == null ? "Add User" : "Update User");
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<form asp-action="Create" novalidate>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.FirstName)<span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.FirstName)" placeholder="" required="required" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.MiddleName)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.MiddleName)" placeholder="" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.LastName)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.LastName)" placeholder=""/>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.EmailAddress)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.EmailAddress)" placeholder=""/>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CompanyName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.CompanyName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ContactNumber)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.ContactNumber)" placeholder="" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AccessLevelName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.AccessLevelName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CountryName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.CountryName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ClientName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.ClientName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ProcessName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.ProcessName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ActiveStatus)</label>
+        <div class="col-md-6 col-sm-6">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.ActiveStatus)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="ln_solid">
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <button type='submit' class="btn btn-primary">Submit</button>
+                <button type='reset' class="btn btn-success">Reset</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <!-- Javascript functions	-->
+    <script>
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function (e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function (e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function () {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+
+    </script>
+}
+

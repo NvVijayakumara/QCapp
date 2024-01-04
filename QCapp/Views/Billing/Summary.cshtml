@@ -1,0 +1,44 @@
+﻿@model IEnumerable<QCapp.Models.SchemaViewModel.BillingSummaryViewModel>
+
+@{
+    ViewData["Title"] = "Billing Summary";
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table table-striped jambo_table">
+        <thead>
+            <tr class="headings">
+                <th class="column-title">@Html.DisplayNameFor(model => model.ClientName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ProcessName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.BillingMonth) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.TotalOrders) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.BilledAmount) </th>
+                <th class="column-title no-link last">
+                    <span class="nobr">Action</span>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                int rowNo = 0;
+                foreach (var item in Model)
+                {
+                    <tr class="@(rowNo%2 == 0 ? "even" : "odd") pointer">
+                        <td>@item.ClientName</td>
+                        <td>@item.ProcessName</td>
+                        <td>@item.BillingMonth</td>
+                        <td>@item.TotalOrders</td>
+                        <td class=" last">@item.BilledAmount</td>
+                        <td class=" last">
+                            @Html.ActionLink("Download", "Download", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+
+                    rowNo++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<QCapp.Models.SchemaViewModel.WorkFlowConfigurationViewModel>
+
+@{
+    ViewData["Title"] = "WorkFlow List";
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+        <thead>
+            <tr class="headings">
+                <th>
+                    <input type="checkbox" id="check-all" class="flat">
+                </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.WorkflowName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.Indexing) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.IndexingQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.DataExtraction) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.DataExtractionQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.Checklist) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ChecklistQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.Reverification) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ReverificationQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.Exceptions) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ExceptionsQC) </th>
+                <th class="column-title no-link last">
+                    <span class="nobr">Action</span>
+                </th>
+                <th class="bulk-actions" colspan="7">
+                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                int rowNo = 0;
+                foreach (var item in Model)
+                {
+                    <tr class="@(rowNo%2 == 0 ? "even" : "odd") pointer">
+                        <td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
+                        <td>@item.WorkflowName</td>
+                        <td>@item.Indexing</td>
+                        <td>@item.IndexingQC</td>
+                        <td>@item.DataExtraction</td>
+                        <td>@item.DataExtractionQC</td>
+                        <td>@item.Checklist</td>
+                        <td>@item.ChecklistQC</td>
+                        <td>@item.Reverification</td>
+                        <td>@item.ReverificationQC</td>
+                        <td>@item.Exceptions</td>
+                        <td>@item.ExceptionsQC</td>
+                        <td class=" last">
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+
+                    rowNo++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

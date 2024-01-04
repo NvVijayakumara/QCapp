@@ -1,0 +1,160 @@
+﻿@model QCapp.Models.SchemaViewModel.WorkFlowConfigurationViewModel
+
+@{
+    ViewData["Title"] = (Model.WorkFlowId == null ? "Add WorkFlow" : "Update WorkFlow");
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<form asp-action="Create" novalidate>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.WorkflowName)<span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.WorkflowName)" placeholder="" required="required" />
+        </div>
+    </div>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Indexing)</label>
+        <div class="col-md-1 col-sm-1">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.Indexing)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+
+        <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.IndexingQC)</label>
+        <div class="col-md-1 col-sm-1 label-align">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.IndexingQC)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.DataExtraction)</label>
+        <div class="col-md-1 col-sm-1">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.DataExtraction)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+
+        <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.DataExtractionQC)</label>
+        <div class="col-md-1 col-sm-1 label-align">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.DataExtractionQC)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Checklist)</label>
+        <div class="col-md-1 col-sm-1">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.Checklist)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+
+        <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.ChecklistQC)</label>
+        <div class="col-md-1 col-sm-1 label-align">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.ChecklistQC)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Reverification)</label>
+        <div class="col-md-1 col-sm-1">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.Reverification)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+
+        <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.ReverificationQC)</label>
+        <div class="col-md-1 col-sm-1 label-align">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.ReverificationQC)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Exceptions)</label>
+        <div class="col-md-1 col-sm-1">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.Exceptions)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+
+        <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.ExceptionsQC)</label>
+        <div class="col-md-1 col-sm-1 label-align">
+            <div class="">
+                <label>
+                    <input name="@Html.DisplayNameFor(model => model.ExceptionsQC)" type="checkbox" class="js-switch" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="ln_solid">
+        <div class="form-group">
+            <div class="col-md-6 offset-md-5">
+                <button type='submit' class="btn btn-primary">Submit</button>
+                <button type='reset' class="btn btn-success">Reset</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <!-- Javascript functions	-->
+    <script>
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function (e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function (e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function () {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+
+    </script>
+}
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<QCapp.Models.SchemaViewModel.UserViewModel>
+
+@{
+    ViewData["Title"] = "User List";
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+        <thead>
+            <tr class="headings">
+                <th>
+                    <input type="checkbox" id="check-all" class="flat">
+                </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.FirstName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.MiddleName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.LastName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.EmailAddress) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.CompanyName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ContactNumber) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.AccessLevelName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.CountryName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ClientName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ProcessName) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ActiveStatus) </th>
+                <th class="column-title no-link last">
+                    <span class="nobr">Action</span>
+                </th>
+                <th class="bulk-actions" colspan="7">
+                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                int rowNo = 0;
+                foreach (var item in Model)
+                {
+                    <tr class="@(rowNo%2 == 0 ? "even" : "odd") pointer">
+                        <td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
+                        <td>@item.FirstName</td>
+                        <td>@item.MiddleName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.EmailAddress</td>
+                        <td>@item.CompanyName</td>
+                        <td>@item.ContactNumber</td>
+                        <td>@item.AccessLevelName</td>
+                        <td>@item.CountryName</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.ProcessName</td>
+                        <td>@item.ActiveStatus</td>
+                        <td class=" last">
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+
+                    rowNo++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
