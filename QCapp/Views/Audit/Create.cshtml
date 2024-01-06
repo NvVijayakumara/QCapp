@@ -1,0 +1,104 @@
+﻿@model QCapp.Models.SchemaViewModel.AuditViewModel
+
+@{
+    ViewData["Title"] = "Add Audit";
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<form asp-action="Create" novalidate>
+
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AuditName)<span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.AuditName)" placeholder="" required="required" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AuditStartDate)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.AuditStartDate)" placeholder="" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AuditEndDate)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.AuditEndDate)" placeholder=""/>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AuditTypeName)</label>
+        <div class="col-md-6 col-sm-6">
+            <select name="@Html.DisplayNameFor(model => model.AuditTypeName)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.QuestionBatch)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.DisplayNameFor(model => model.QuestionBatch)" placeholder="" />
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">
+            @Html.DisplayNameFor(model => model.AuditDueDate)
+        </label>
+        <div class="col-md-6 col-sm-6 ">
+            <input id="@Html.NameFor(model => model.AuditDueDate)" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+            <script>
+                function timeFunctionLong(input) {
+                    setTimeout(function () {
+                        input.type = 'text';
+                    }, 60000);
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="ln_solid">
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <button type='submit' class="btn btn-primary">Submit</button>
+                <button type='reset' class="btn btn-success">Reset</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <!-- Javascript functions	-->
+    <script>
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function (e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function (e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function () {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+
+    </script>
+}
+

@@ -153,4 +153,11 @@ namespace QCapp.Models.SchemaViewModel
         [DisplayName("Billed Amount")]
         public string? BilledAmount { get; set; }
     }
+
+    public class AuditViewModel : Audit
+    {
+
+        [DisplayName("Audit Type Name")]
+        public string? AuditTypeName { get; set; }
+    }
 }

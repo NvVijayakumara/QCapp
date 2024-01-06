@@ -526,4 +526,40 @@ namespace QCapp.Models.Schema
         [DisplayName("Uploaded Date")]
         public DateTime? UploadedDate { get; set; }
     }
+    
+    public class Audit
+    {
+        [DisplayName("Audit Id")]
+        public int? AuditId { get; set; }
+        
+        [DisplayName("Audit Name")]
+        public string? AuditName { get; set; }
+
+        [DisplayName("Audit Start Date")]
+        public DateTime? AuditStartDate { get; set; }
+
+        [DisplayName("Audit End Date")]
+        public DateTime? AuditEndDate { get; set; }
+
+        [DisplayName("Audit Type Id")]
+        public int? AuditTypeId { get; set; }
+
+        [DisplayName("Question Batch")]
+        public string? QuestionBatch { get; set; }
+
+        [DisplayName("Audit Due Date")]
+        public DateTime? AuditDueDate { get; set; }
+
+        //[DisplayName("Created By")]
+        //public int? CreatedBy { get; set; }
+
+        //[DisplayName("Created Date")]
+        //public DateTime? CreatedDate { get; set; }
+
+        //[DisplayName("Modified By")]
+        //public int? ModifiedBy { get; set; }
+
+        //[DisplayName("Modified Date")]
+        //public DateTime? ModifiedDate { get; set; }
+    }
 }
