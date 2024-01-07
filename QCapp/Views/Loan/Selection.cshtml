@@ -1,0 +1,300 @@
+﻿@model IEnumerable<QCapp.Models.SchemaViewModel.LoanViewModel>
+
+@{
+    ViewData["Title"] = "Loans Selection";
+    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+}
+
+<div style="margin-top:40px;">
+    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="UploadedLoans-tab" data-toggle="tab" href="#UploadedLoans" role="tab" aria-controls="UploadedLoans" aria-selected="true">Uploaded Loans</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="AutoSelectLoans-tab" data-toggle="tab" href="#AutoSelectLoans" role="tab" aria-controls="AutoSelectLoans" aria-selected="false">Auto Select Loans</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="AutoSelectedLoans-tab" data-toggle="tab" href="#AutoSelectedLoans" role="tab" aria-controls="AutoSelectedLoans" aria-selected="false">Auto Selected Loans</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ManualSelectLoans-tab" data-toggle="tab" href="#ManualSelectLoans" role="tab" aria-controls="ManualSelectLoans" aria-selected="false">Manual Select Loans</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ManualSelectedLoans-tab" data-toggle="tab" href="#ManualSelectedLoans" role="tab" aria-controls="ManualSelectedLoans" aria-selected="false">Manual Selected Loans</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="UploadedLoans" role="tabpanel" aria-labelledby="UploadedLoans-tab">
+            <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title">@Html.DisplayNameFor(model => model.LoanNumber) </th>
+                            <th class="column-title">@Html.DisplayNameFor(model => model.BorrowerLastName) </th>
+                            <th class="column-title">@Html.DisplayNameFor(model => model.AuditName) </th>
+                            <th class="column-title">@Html.DisplayNameFor(model => model.ProcessName) </th>
+                            <th class="column-title">@Html.DisplayNameFor(model => model.WorkFlowName) </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            int rowNo = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr class="@(rowNo%2 == 0 ? "even" : "odd") pointer">
+                                    <td>@item.LoanNumber</td>
+                                    <td>@item.BorrowerLastName</td>
+                                    <td>@item.AuditName</td>
+                                    <td>@item.ProcessName</td>
+                                    <td>@item.WorkFlowName</td>
+                                </tr>
+
+                                rowNo++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="AutoSelectLoans" role="tabpanel" aria-labelledby="AutoSelectLoans-tab">
+
+            <p style="text-align:center;">
+                <br />
+                <b>Selection Criteria</b>
+                <br />
+            </p>
+
+            <form asp-action="Create" novalidate>
+
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AuditName)</label>
+                    <div class="col-md-6 col-sm-6">
+                        <select name="@Html.DisplayNameFor(model => model.AuditName)" class="form-control">
+                            <option value="">Choose..</option>
+                            <option value="press">Press</option>
+                            <option value="net">Internet</option>
+                            <option value="mouth">Word of mouth</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Select Percentage<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control" name="SelectPercentage" placeholder="" required="required" />
+                    </div>
+                </div>
+
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.BorrSelfEmployed)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.BorrSelfEmployed)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.LoanType)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.LoanType)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CoBorrSelfEmployed)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.CoBorrSelfEmployed)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.LoanPurpose)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.LoanPurpose)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.IncomeTotalNetRentalIncome)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.IncomeTotalNetRentalIncome)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.LoanProgram)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.LoanProgram)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CostCenter)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.CostCenter)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.Occupancy)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.Occupancy)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.LoanOfficer)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.LoanOfficer)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.SubjectPropertyType)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.Occupancy)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.LoanProcessor)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.LoanProcessor)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.CLTV)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.CLTV)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.SubjectPropertyState)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.SubjectPropertyState)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.FICO)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.FICO)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Underwriter)</label>
+                    <div class="col-md-1 col-sm-1">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.Underwriter)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.BottomRatio)</label>
+                    <div class="col-md-1 col-sm-1 label-align">
+                        <div class="">
+                            <label>
+                                <input name="@Html.DisplayNameFor(model => model.BottomRatio)" type="checkbox" class="js-switch" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ln_solid">
+                    <div class="form-group">
+                        <div class="col-md-6 offset-md-5">
+                            <button type='submit' class="btn btn-primary">Submit</button>
+                            <button type='reset' class="btn btn-success">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="tab-pane fade" id="AutoSelectedLoans" role="tabpanel" aria-labelledby="AutoSelectedLoans-tab">
+            AutoSelectedLoans
+        </div>
+        <div class="tab-pane fade" id="ManualSelectLoans" role="tabpanel" aria-labelledby="ManualSelectLoans-tab">
+            ManualSelectLoans
+        </div>
+        <div class="tab-pane fade" id="ManualSelectedLoans" role="tabpanel" aria-labelledby="ManualSelectedLoans-tab">
+            ManualSelectedLoans
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Javascript functions	-->
+    <script>
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function (e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function (e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function () {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+
+    </script>
+}

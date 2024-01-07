@@ -39,7 +39,12 @@
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.QuestionBatch)</label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.QuestionBatch)" placeholder="" />
+            <select name="@Html.DisplayNameFor(model => model.QuestionBatch)" class="form-control">
+                <option value="">Choose..</option>
+                <option value="press">Press</option>
+                <option value="net">Internet</option>
+                <option value="mouth">Word of mouth</option>
+            </select>
         </div>
     </div>
     <div class="item form-group">

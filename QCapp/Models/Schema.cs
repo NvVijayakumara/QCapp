@@ -459,7 +459,7 @@ namespace QCapp.Models.Schema
     public class WorkFlowConfiguration
     {
         [DisplayName("WorkFlow Id")] 
-        public int WorkFlowId { get; set; }
+        public int? WorkFlowId { get; set; }
         
         [DisplayName("WorkFlow Name")] 
         public string? WorkflowName { get; set; }
@@ -544,8 +544,8 @@ namespace QCapp.Models.Schema
         [DisplayName("Audit Type Id")]
         public int? AuditTypeId { get; set; }
 
-        [DisplayName("Question Batch")]
-        public string? QuestionBatch { get; set; }
+        [DisplayName("Questionnaire Id")]
+        public int? QuestionnaireId { get; set; }
 
         [DisplayName("Audit Due Date")]
         public DateTime? AuditDueDate { get; set; }
@@ -561,5 +561,194 @@ namespace QCapp.Models.Schema
 
         //[DisplayName("Modified Date")]
         //public DateTime? ModifiedDate { get; set; }
+    }
+
+    public class LoansFile
+    {
+        [DisplayName("Id")]
+        public int? Id { get; set; }
+
+        [DisplayName("File Name")]
+        public string? FileName { get; set; }
+        
+        [DisplayName("Status Id")]
+        public int? LoanUploadStatusId { get; set; }
+        
+        [DisplayName("Total Loans")]
+        public int? TotalLoans { get; set; }
+
+        [DisplayName("Loans Success")]
+        public int? LoansSuccessCount { get; set; }
+
+        [DisplayName("Loans Failed")]
+        public int? LoansFailedCount { get; set; }
+
+        [DisplayName("Work Flow Id")]
+        public int? WorkFlowId { get; set; }
+
+        [DisplayName("Process Id")]
+        public int? ProcessId { get; set; }
+        
+        [DisplayName("Audit Id")]
+        public int? AuditId { get; set; }
+
+        [DisplayName("Uploaded By")]
+        public int? UploadedBy { get; set; }
+
+        [DisplayName("Uploaded Date")]
+        public DateTime? UploadedDate { get; set; }
+    }
+
+    public class Loan
+    {
+        [DisplayName("Loan Id")]
+        public int? LoanId { get; set; }
+
+        [DisplayName("Loan Number")]
+        public string? LoanNumber { get; set; }
+
+        [DisplayName("Borrower Last Name")]
+        public string? BorrowerLastName { get; set; }
+
+        [DisplayName("Cost Center")]
+        public double? CostCenter { get; set; }
+
+        [DisplayName("Date Selected PFQC")]
+        public DateTime? DateSelectedPFQC { get; set; }
+
+        [DisplayName("PFQC Cleared Date")]
+        public DateTime? PFQCClearedDate { get; set; }
+
+        [DisplayName("Appraisal Accepted Date")]
+        public DateTime? AppraisalAcceptedDate { get; set; }
+
+        [DisplayName("PIW")]
+        public bool? PIW { get; set; }
+
+        [DisplayName("Underwriting Delegated")]
+        public bool? UnderwritingDelegated { get; set; }
+
+        [DisplayName("Last Finished Milestone Date")]
+        public DateTime? LastFinishedMilestoneDate { get; set; }
+
+        [DisplayName("Last Finished Milestone")]
+        public int? LastFinishedMilestoneId { get; set; }
+
+        [DisplayName("Current Milestone")]
+        public int? CurrentMilestoneId { get; set; }
+
+        [DisplayName("Lender Channel")]
+        public string? LenderChannel { get; set; }
+
+        [DisplayName("Loan Folder")]
+        public string? LoanFolder { get; set; }
+
+        [DisplayName("Loan Status")]
+        public int? LoanStatusId { get; set; }
+
+        [DisplayName("Status Date")]
+        public DateTime? StatusDate { get; set; }
+
+        [DisplayName("Application Date")]
+        public DateTime? ApplicationDate { get; set; }
+
+        [DisplayName("Approval Date")]
+        public DateTime? ApprovalDate { get; set; }
+
+        [DisplayName("Milestone Date Decision")]
+        public DateTime? MilestoneDateDecision { get; set; }
+
+        [DisplayName("Milestone Date Resubmittal")]
+        public DateTime? MilestoneDateResubmittal { get; set; }
+
+        [DisplayName("Closing Date")]
+        public DateTime? ClosingDate { get; set; }
+
+        [DisplayName("Disbursement Date")]
+        public DateTime? DisbursementDate { get; set; }
+
+        [DisplayName("Funds Sent")]
+        public DateTime? FundsSent { get; set; }
+
+        [DisplayName("Loan Type")]
+        public int? LoanTypeId { get; set; }
+
+        [DisplayName("Loan Purpose")]
+        public string? LoanPurpose { get; set; }
+
+        [DisplayName("Loan Program")]
+        public string? LoanProgram { get; set; }
+
+        [DisplayName("Occupancy")]
+        public int? OccupancyId { get; set; }
+
+        [DisplayName("Loan Term")]
+        public int? LoanTerm { get; set; }
+
+        [DisplayName("Amortization Type")]
+        public string? AmortizationType { get; set; }
+
+        [DisplayName("Lien Position")]
+        public string? LienPosition { get; set; }
+
+        [DisplayName("Loan Amount")]
+        public double? LoanAmount { get; set; }
+
+        [DisplayName("Note Rate")]
+        public float? NoteRate { get; set; }
+
+        [DisplayName("Appraised Value")]
+        public double? AppraisedValue { get; set; }
+
+        [DisplayName("Subject Property Type")]
+        public string? SubjectPropertyType { get; set; }
+
+        [DisplayName("Subject Property City")]
+        public int? SubjectPropertyCityId { get; set; }
+
+        [DisplayName("Subject Property State")]
+        public int? SubjectPropertyStateId { get; set; }
+
+        [DisplayName("Subject Property Zip")]
+        public string? SubjectPropertyZip { get; set; }
+
+        [DisplayName("CLTV")]
+        public float? CLTV { get; set; }
+
+        [DisplayName("FICO")]
+        public int? FICO { get; set; }
+
+        [DisplayName("Total Gift Funds Amt")]
+        public double? TotalGiftFundsAmt { get; set; }
+
+        [DisplayName("Bottom Ratio")]
+        public float? BottomRatio { get; set; }
+
+        [DisplayName("Loan Closer")]
+        public string? LoanCloser { get; set; }
+
+        [DisplayName("Loan Officer")]
+        public string? LoanOfficer { get; set; }
+
+        [DisplayName("Loan Processor")]
+        public string? LoanProcessor { get; set; }
+
+        [DisplayName("Underwriter")]
+        public string? Underwriter { get; set; }
+
+        [DisplayName("Borr Self Employed")]
+        public bool? BorrSelfEmployed { get; set; }
+
+        [DisplayName("CoBorr Self Employed")]
+        public bool? CoBorrSelfEmployed { get; set; }
+
+        [DisplayName("Agency Case No")]
+        public string? AgencyCaseNo { get; set; }
+
+        [DisplayName("Income Total Net Rental Income")]
+        public double? IncomeTotalNetRentalIncome { get; set; }
+        
+        [DisplayName("Loan File Id")]
+        public double? LoanFileId { get; set; }
     }
 }
