@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QCapp.Models.SchemaViewModel;
+using QCapp.ViewModels;
 
 namespace QCapp.Controllers
 {
@@ -14,15 +14,15 @@ namespace QCapp.Controllers
                     {
                         WorkflowName = "WorkFlow 1",
                         Indexing = true,
-                        IndexingQC = true,
+                        IndexingQc = true,
                         DataExtraction = true,
-                        DataExtractionQC = true,
+                        DataExtractionQc = true,
                         Checklist = true,
-                        ChecklistQC = true,
+                        ChecklistQc = true,
                         Reverification = true,
-                        ReverificationQC = true,
+                        ReverificationQc = true,
                         Exceptions = true,
-                        ExceptionsQC = true,
+                        ExceptionsQc = true,
                     }
                 );
             listWorkFlowConfigurationViewModel.Add(
@@ -30,15 +30,15 @@ namespace QCapp.Controllers
                     {
                         WorkflowName = "WorkFlow 2",
                         Indexing = true,
-                        IndexingQC = true,
+                        IndexingQc = true,
                         DataExtraction = true,
-                        DataExtractionQC = true,
+                        DataExtractionQc = true,
                         Checklist = true,
-                        ChecklistQC = true,
+                        ChecklistQc = true,
                         Reverification = true,
-                        ReverificationQC = true,
+                        ReverificationQc = true,
                         Exceptions = true,
-                        ExceptionsQC = true,
+                        ExceptionsQc = true,
                     }
                 );
 

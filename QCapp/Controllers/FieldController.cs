@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QCapp.Models.SchemaViewModel;
+using QCapp.ViewModels;
 
 namespace QCapp.Controllers
 {

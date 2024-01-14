@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using QCapp.Models;
 using System.Diagnostics;
+using QCapp.Models;
 
 namespace QCapp.Controllers
 {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QCapp.Models.SchemaViewModel.WorkFlowConfigurationViewModel>
+﻿@model IEnumerable<QCapp.ViewModels.WorkFlowConfigurationViewModel>
 
 @{
     ViewData["Title"] = "WorkFlow List";
@@ -14,15 +14,15 @@
                 </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.WorkflowName) </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.Indexing) </th>
-                <th class="column-title">@Html.DisplayNameFor(model => model.IndexingQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.IndexingQc) </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.DataExtraction) </th>
-                <th class="column-title">@Html.DisplayNameFor(model => model.DataExtractionQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.DataExtractionQc) </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.Checklist) </th>
-                <th class="column-title">@Html.DisplayNameFor(model => model.ChecklistQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ChecklistQc) </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.Reverification) </th>
-                <th class="column-title">@Html.DisplayNameFor(model => model.ReverificationQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ReverificationQc) </th>
                 <th class="column-title">@Html.DisplayNameFor(model => model.Exceptions) </th>
-                <th class="column-title">@Html.DisplayNameFor(model => model.ExceptionsQC) </th>
+                <th class="column-title">@Html.DisplayNameFor(model => model.ExceptionsQc) </th>
                 <th class="column-title no-link last">
                     <span class="nobr">Action</span>
                 </th>
@@ -41,15 +41,15 @@
                         <td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
                         <td>@item.WorkflowName</td>
                         <td>@item.Indexing</td>
-                        <td>@item.IndexingQC</td>
+                        <td>@item.IndexingQc</td>
                         <td>@item.DataExtraction</td>
-                        <td>@item.DataExtractionQC</td>
+                        <td>@item.DataExtractionQc</td>
                         <td>@item.Checklist</td>
-                        <td>@item.ChecklistQC</td>
+                        <td>@item.ChecklistQc</td>
                         <td>@item.Reverification</td>
-                        <td>@item.ReverificationQC</td>
+                        <td>@item.ReverificationQc</td>
                         <td>@item.Exceptions</td>
-                        <td>@item.ExceptionsQC</td>
+                        <td>@item.ExceptionsQc</td>
                         <td class=" last">
                             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })

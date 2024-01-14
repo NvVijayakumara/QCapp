@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QCapp.Models.SchemaViewModel.LoanViewModel>
+﻿@model IEnumerable<QCapp.ViewModels.LoanViewModel>
 
 @{
     ViewData["Title"] = "Loans Selection";
@@ -196,11 +196,11 @@
                         </div>
                     </div>
 
-                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.CLTV)</label>
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.Cltv)</label>
                     <div class="col-md-1 col-sm-1 label-align">
                         <div class="">
                             <label>
-                                <input name="@Html.DisplayNameFor(model => model.CLTV)" type="checkbox" class="js-switch" />
+                                <input name="@Html.DisplayNameFor(model => model.Cltv)" type="checkbox" class="js-switch" />
                             </label>
                         </div>
                     </div>
@@ -216,11 +216,11 @@
                         </div>
                     </div>
 
-                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.FICO)</label>
+                    <label class="col-form-label col-md-4 col-sm-4  label-align">@Html.DisplayNameFor(model => model.Fico)</label>
                     <div class="col-md-1 col-sm-1 label-align">
                         <div class="">
                             <label>
-                                <input name="@Html.DisplayNameFor(model => model.FICO)" type="checkbox" class="js-switch" />
+                                <input name="@Html.DisplayNameFor(model => model.Fico)" type="checkbox" class="js-switch" />
                             </label>
                         </div>
                     </div>
