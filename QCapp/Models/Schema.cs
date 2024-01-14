@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace QCapp.Models.Schema
 {
@@ -404,14 +406,15 @@ namespace QCapp.Models.Schema
         public string? StateCode { get; set; }
     }
     
-    public class User
+    public class User : IdentityUser
     {
         [DisplayName("User Id")] 
         public int? UserId { get; set; }
         
         [DisplayName("First Name")] 
         public string? FirstName { get; set; }
-        
+
+        [Required]
         [DisplayName("Middle Name")] 
         public string? MiddleName { get; set; }
         
@@ -442,6 +445,10 @@ namespace QCapp.Models.Schema
         [DisplayName("Active Status")] 
         public bool? ActiveStatus { get; set; }
 
+        [Required(ErrorMessage = "Password is required")]
+        [DisplayName("Password")]
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
 
         //[DisplayName("Created By")]
         //public int? CreatedBy { get; set; }
@@ -454,6 +461,13 @@ namespace QCapp.Models.Schema
 
         //[DisplayName("Modified Date")]
         //public DateTime? ModifiedDate { get; set; }
+    }
+
+    public class UserRole : IdentityRole
+    {
+        public string Description { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string IPAddress { get; set; }
     }
 
     public class WorkFlowConfiguration

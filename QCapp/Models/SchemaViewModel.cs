@@ -1,8 +1,23 @@
 ﻿using QCapp.Models.Schema;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace QCapp.Models.SchemaViewModel
 {
+    public class UserLoginModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
     public class AccessLevelViewModel : AccessLevel
     {
         //  
@@ -123,6 +138,26 @@ namespace QCapp.Models.SchemaViewModel
         
         [DisplayName("Process Name")] 
         public string? ProcessName { get; set; }
+
+        [DisplayName("Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string? ConfirmPassword { get; set; }
+    }
+
+    public class UserRoleListViewModel
+    {
+        [DisplayName("Id")]
+        public string Id { get; set; }
+        
+        [DisplayName("Role Name")]
+        public string RoleName { get; set; }
+
+        [DisplayName("Description")]
+        public string Description { get; set; }
+
+        [DisplayName("Number Of Users")]
+        public int NumberOfUsers { get; set; } 
     }
 
     public class WorkFlowConfigurationViewModel : WorkFlowConfiguration

@@ -7,34 +7,51 @@
 
 <form asp-action="Create" novalidate>
 
+    @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.FirstName)<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.FirstName)" placeholder="" required="required" />
+            <input class="form-control" name="@Html.NameFor(model => model.FirstName)" placeholder="" required="required" />
         </div>
     </div>
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.MiddleName)</label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.MiddleName)" placeholder="" />
+            <input class="form-control" name="@Html.NameFor(model => model.MiddleName)" placeholder="" />
+            @* <span asp-validation-for="MiddleName" class="text-danger"></span> *@
         </div>
     </div>
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.LastName)</label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.LastName)" placeholder=""/>
+            <input class="form-control" name="@Html.NameFor(model => model.LastName)" placeholder="" />
         </div>
     </div>
+
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.EmailAddress)</label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.EmailAddress)" placeholder=""/>
+            <input class="form-control" name="@Html.NameFor(model => model.EmailAddress)" placeholder="" />
         </div>
     </div>
     <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.Password)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.NameFor(model => model.Password)" placeholder="" />
+        </div>
+    </div>
+    <div class="field item form-group">
+        <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ConfirmPassword)</label>
+        <div class="col-md-6 col-sm-6">
+            <input class="form-control" name="@Html.NameFor(model => model.ConfirmPassword)" placeholder="" />
+        </div>
+    </div>
+
+    <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CompanyName)</label>
         <div class="col-md-6 col-sm-6">
-            <select name="@Html.DisplayNameFor(model => model.CompanyName)" class="form-control">
+            <select name="@Html.NameFor(model => model.CompanyName)" class="form-control">
                 <option value="">Choose..</option>
                 <option value="press">Press</option>
                 <option value="net">Internet</option>
@@ -45,13 +62,13 @@
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ContactNumber)</label>
         <div class="col-md-6 col-sm-6">
-            <input class="form-control" name="@Html.DisplayNameFor(model => model.ContactNumber)" placeholder="" />
+            <input class="form-control" name="@Html.NameFor(model => model.ContactNumber)" placeholder="" />
         </div>
     </div>
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.AccessLevelName)</label>
         <div class="col-md-6 col-sm-6">
-            <select name="@Html.DisplayNameFor(model => model.AccessLevelName)" class="form-control">
+            <select name="@Html.NameFor(model => model.AccessLevelName)" class="form-control">
                 <option value="">Choose..</option>
                 <option value="press">Press</option>
                 <option value="net">Internet</option>
@@ -62,7 +79,7 @@
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.CountryName)</label>
         <div class="col-md-6 col-sm-6">
-            <select name="@Html.DisplayNameFor(model => model.CountryName)" class="form-control">
+            <select name="@Html.NameFor(model => model.CountryName)" class="form-control">
                 <option value="">Choose..</option>
                 <option value="press">Press</option>
                 <option value="net">Internet</option>
@@ -73,7 +90,7 @@
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ClientName)</label>
         <div class="col-md-6 col-sm-6">
-            <select name="@Html.DisplayNameFor(model => model.ClientName)" class="form-control">
+            <select name="@Html.NameFor(model => model.ClientName)" class="form-control">
                 <option value="">Choose..</option>
                 <option value="press">Press</option>
                 <option value="net">Internet</option>
@@ -84,7 +101,7 @@
     <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">@Html.DisplayNameFor(model => model.ProcessName)</label>
         <div class="col-md-6 col-sm-6">
-            <select name="@Html.DisplayNameFor(model => model.ProcessName)" class="form-control">
+            <select name="@Html.NameFor(model => model.ProcessName)" class="form-control">
                 <option value="">Choose..</option>
                 <option value="press">Press</option>
                 <option value="net">Internet</option>
@@ -97,7 +114,7 @@
         <div class="col-md-6 col-sm-6">
             <div class="">
                 <label>
-                    <input name="@Html.DisplayNameFor(model => model.ActiveStatus)" type="checkbox" class="js-switch" />
+                    <input name="@Html.NameFor(model => model.ActiveStatus)" type="checkbox" class="js-switch" />
                 </label>
             </div>
         </div>
@@ -119,6 +136,9 @@
 </div>
 
 @section Scripts {
+    
+    @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+
     <!-- Javascript functions	-->
     <script>
         // initialize a validator instance from the "FormValidator" constructor.
