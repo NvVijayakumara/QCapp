@@ -13,59 +13,12 @@ public partial class QcprojV1Context : DbContext
         Configuration = configuration;
     }
 
-    //public QcprojV1Context(DbContextOptions<QcprojV1Context> options, IConfiguration configuration)
+    //public QcprojV1Context(DbContextOptions<QcprojV1Context> options)
     //    : base(options)
     //{
-    //    ChangeTracker.LazyLoadingEnabled = false;
+    //    //ChangeTracker.LazyLoadingEnabled = false;
     //}
 
-    public virtual DbSet<AccessLevel> AccessLevels { get; set; }
-
-    public virtual DbSet<Audit> Audits { get; set; }
-
-    public virtual DbSet<AuditStatus> AuditStatuses { get; set; }
-
-    public virtual DbSet<AuditType> AuditTypes { get; set; }
-
-    public virtual DbSet<Billing> Billings { get; set; }
-
-    public virtual DbSet<Checklist> Checklists { get; set; }
-
-    public virtual DbSet<City> Cities { get; set; }
-
-    public virtual DbSet<Client> Clients { get; set; }
-
-    public virtual DbSet<Company> Companies { get; set; }
-
-    public virtual DbSet<Country> Countries { get; set; }
-
-    public virtual DbSet<DocumentConfiguration> DocumentConfigurations { get; set; }
-
-    public virtual DbSet<FieldConfiguration> FieldConfigurations { get; set; }
-
-    public virtual DbSet<Loan> Loans { get; set; }
-
-    public virtual DbSet<LoanOccupancy> LoanOccupancies { get; set; }
-
-    public virtual DbSet<LoanStatus> LoanStatuses { get; set; }
-
-    public virtual DbSet<LoanType> LoanTypes { get; set; }
-
-    public virtual DbSet<LoansFile> LoansFiles { get; set; }
-
-    public virtual DbSet<LoansFileUploadStatus> LoansFileUploadStatuses { get; set; }
-
-    public virtual DbSet<Milestone> Milestones { get; set; }
-
-    public virtual DbSet<Process> Processes { get; set; }
-
-    public virtual DbSet<Questionnaire> Questionnaires { get; set; }
-
-    public virtual DbSet<State> States { get; set; }
-
-    public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<WorkFlowConfiguration> WorkFlowConfigurations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -445,6 +398,26 @@ public partial class QcprojV1Context : DbContext
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.Property(e => e.MenuId).ValueGeneratedNever();
+            entity.Property(e => e.CssClass).HasMaxLength(50);
+            entity.Property(e => e.MenuName).HasMaxLength(50);
+
+            entity.HasOne(d => d.ParentMeenu).WithMany(p => p.InverseParentMeenu)
+                .HasForeignKey(d => d.ParentMeenuId)
+                .HasConstraintName("FK_Menus_Menus");
+        });
+
+        modelBuilder.Entity<MenuLink>(entity =>
+        {
+            entity.HasKey(e => e.MenuLinkId).HasName("PK_MenuLink");
+
+            entity.Property(e => e.MenuLinkId).ValueGeneratedNever();
+            entity.Property(e => e.Href).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Milestone>(entity =>
         {
             entity.ToTable("Milestone");
@@ -524,6 +497,23 @@ public partial class QcprojV1Context : DbContext
                 .HasConstraintName("FK_User_Process");
         });
 
+        modelBuilder.Entity<UserAccessMenuMaping>(entity =>
+        {
+            entity.HasKey(e => e.MappingId);
+
+            entity.ToTable("UserAccessMenuMaping");
+
+            entity.Property(e => e.MappingId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.AccessLevel).WithMany(p => p.UserAccessMenuMapings)
+                .HasForeignKey(d => d.AccessLevelId)
+                .HasConstraintName("FK_UserAccessMenuMaping_AccessLevel");
+
+            entity.HasOne(d => d.MenuLink).WithMany(p => p.UserAccessMenuMapings)
+                .HasForeignKey(d => d.MenuLinkId)
+                .HasConstraintName("FK_UserAccessMenuMaping_MenuLinks");
+        });
+
         modelBuilder.Entity<WorkFlowConfiguration>(entity =>
         {
             entity.HasKey(e => e.WorkFlowId);
@@ -545,4 +535,59 @@ public partial class QcprojV1Context : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+    public virtual DbSet<AccessLevel> AccessLevels { get; set; }
+
+    public virtual DbSet<Audit> Audits { get; set; }
+
+    public virtual DbSet<AuditStatus> AuditStatuses { get; set; }
+
+    public virtual DbSet<AuditType> AuditTypes { get; set; }
+
+    public virtual DbSet<Billing> Billings { get; set; }
+
+    public virtual DbSet<Checklist> Checklists { get; set; }
+
+    public virtual DbSet<City> Cities { get; set; }
+
+    public virtual DbSet<Client> Clients { get; set; }
+
+    public virtual DbSet<Company> Companies { get; set; }
+
+    public virtual DbSet<Country> Countries { get; set; }
+
+    public virtual DbSet<DocumentConfiguration> DocumentConfigurations { get; set; }
+
+    public virtual DbSet<FieldConfiguration> FieldConfigurations { get; set; }
+
+    public virtual DbSet<Loan> Loans { get; set; }
+
+    public virtual DbSet<LoanOccupancy> LoanOccupancies { get; set; }
+
+    public virtual DbSet<LoanStatus> LoanStatuses { get; set; }
+
+    public virtual DbSet<LoanType> LoanTypes { get; set; }
+
+    public virtual DbSet<LoansFile> LoansFiles { get; set; }
+
+    public virtual DbSet<LoansFileUploadStatus> LoansFileUploadStatuses { get; set; }
+
+    public virtual DbSet<Menu> Menus { get; set; }
+
+    public virtual DbSet<MenuLink> MenuLinks { get; set; }
+
+    public virtual DbSet<Milestone> Milestones { get; set; }
+
+    public virtual DbSet<Process> Processes { get; set; }
+
+    public virtual DbSet<Questionnaire> Questionnaires { get; set; }
+
+    public virtual DbSet<State> States { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserAccessMenuMaping> UserAccessMenuMapings { get; set; }
+
+    public virtual DbSet<WorkFlowConfiguration> WorkFlowConfigurations { get; set; }
 }

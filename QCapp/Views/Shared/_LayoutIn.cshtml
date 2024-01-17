@@ -1,10 +1,10 @@
-﻿@* @using Microsoft.AspNetCore.Http
+﻿@model QCapp.ViewModels.UserSiteDetailsViewModel
+
+@* @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     var user = HttpContextAccessor.HttpContext.Session.Keys["user"];
 } *@
-
-@model QCapp.Models.User
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,22 +20,22 @@
 
     <!-- Bootstrap -->
     <link href="~/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link href="~/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    
+
     <!-- NProgress -->
     <link href="~/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
-    
+
     <!-- iCheck -->
     <link href="~/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
     <!-- bootstrap-progressbar -->
     <link href="~/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    
+
     <!-- JQVMap -->
     <link href="~/gentelella/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-    
+
     <!-- bootstrap-daterangepicker -->
     <link href="~/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
@@ -78,79 +78,65 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            @* <h3>General</h3> *@
                             <ul class="nav side-menu">
-                                <li>
-                                    <a><i class="fa fa-home"></i> 1. Admin <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/Company/Create">1. Add Company</a></li>
-                                        <li><a href="/User/Create">2. User Management</a></li>
-                                        <li><a href="/Client/Create">3. Client Creation</a></li>
-                                        <li><a href="/Document/Create">4. Document Classification</a></li>
-                                        <li><a href="/Field/Create">5. Data Extraction List</a></li>
-                                        <li><a href="/Questionnaire/Upload">6. Questionnaire Creation</a></li>
-                                        <li><a href="/Workflow/Create">7. Workflow Setup</a></li>
-                                        <li><a href="/Billing/Summary">8. Billing</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-home"></i> 2. Loans <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/loan/upload">1. Upload Loans</a></li>
-                                        <li><a href="index2.html">2. Loan Import Log</a></li>
-                                        <li><a href="/loan/index">3. Loans</a></li>
-                                        <li><a href="index3.html">4. Add Loan</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-sitemap"></i> 3. Audits <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/Audit/Index">1. Audits</a></li>
-                                        <li><a href="/Audit/Create">2. Add Audit</a></li>
-                                        <li><a href="/loan/selection">3. Loans Selection</a></li>
+                                @{
+                                    int menuSeerialNo = 1;
+                                    foreach (var menuItem in Model.UserLinks
+                                    .Where(x => string.IsNullOrWhiteSpace(x.ParentMenuId.ToString()) == true)
+                                    .OrderBy(x => x.MenuOrder ?? x.MenuId )
+                                    .Select(x => new { x.MenuId, x.MenuName, x.MenuCssClass })
+                                    .Distinct()
+                                    .ToList())
+                                    {
                                         <li>
-                                            <a>5. Assignment <span class="fa fa-chevron-down"></span></a>
+                                            <a><i class="fa @(menuItem.MenuCssClass)"></i> @(menuSeerialNo++). @menuItem.MenuName <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    <a href="level2.html">1. Manual Assignment</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#level2_1">2. Auto Assignment</a>
-                                                </li>
+                                                @{
+                                                    // menu links
+                                                    int menuLinkSeerialNo = 1;
+                                                    foreach (var menuLinkItem in Model.UserLinks
+                                                    .Where(x => x.MenuId == menuItem.MenuId)
+                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId )
+                                                    .Select(x => new { x.LinkId, x.LinkName, x.LinkHref })
+                                                    .Distinct()
+                                                    .ToList())
+                                                    {
+                                                        <li><a href="@menuLinkItem.LinkHref">@(menuLinkSeerialNo++). @menuLinkItem.LinkName</a></li>
+                                                    }
+
+                                                    // sub menus
+                                                    foreach (var subMenuItem in Model.UserLinks
+                                                    .Where(x => x.ParentMenuId == menuItem.MenuId)
+                                                    .OrderBy(x => x.MenuOrder ?? x.MenuId )
+                                                    .Select(x => new { x.MenuId, x.MenuName, x.MenuCssClass })
+                                                    .Distinct()
+                                                    .ToList())
+                                                    {
+                                                        <li>
+                                                            <a>@(menuLinkSeerialNo++). @subMenuItem.MenuName <span class="fa fa-chevron-down"></span></a>
+                                                            <ul class="nav child_menu">
+                                                                @{
+                                                                    int subMenuLinkSeerialNo = 1;
+                                                                    foreach (var subMenuLinkItem in Model.UserLinks
+                                                                    .Where(x => x.MenuId == menuItem.MenuId)
+                                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId )
+                                                                    .Select(x => new { x.LinkId, x.LinkName, x.LinkHref })
+                                                                    .Distinct()
+                                                                    .ToList())
+                                                                    {
+                                                                        <li class="sub_menu"><a href="@subMenuLinkItem.LinkHref">@(subMenuLinkSeerialNo++). @subMenuLinkItem.LinkName</a></li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                }
                                             </ul>
                                         </li>
-                                    </ul>
-                                </li>
+                                    }
+                                }
                                 <li>
-                                    <a><i class="fa fa-desktop"></i> 4. Loan Review <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="general_elements.html">1. Loans for Audit</a></li>
-                                        <li><a href="media_gallery.html">2. Loan Questionnaire</a></li>
-                                        <li><a href="typography.html">3. Exceptions and Documents</a></li>
-                                        <li><a href="icons.html">4. Loan Review Summary</a></li>
-                                        <li><a href="glyphicons.html">5. Loans for Approval (0)</a></li>
-                                        <li><a href="widgets.html">6. Returned Loans (0)</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-table"></i> 5. Communication <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tables.html">1. Exceptions</a></li>
-                                        <li><a href="tables_dynamic.html">2. Modify Exceptions</a></li>
-                                        <li><a href="tables_dynamic.html">3. Borrower Documents</a></li>
-                                        <li><a href="tables_dynamic.html">4. Credit Report Batch</a></li>
-                                        <li><a href="tables_dynamic.html">5. Action Plans</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-bar-chart-o"></i> 6. Reports <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="chartjs.html">1. Business Objects</a></li>
-                                        <li><a href="chartjs2.html">2. In-App Reporting</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-clone"></i>7. ACES support <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-clone"></i>@(menuSeerialNo++). ACES support <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="fixed_sidebar.html">1. Contact ACES</a></li>
                                         <li><a href="fixed_footer.html">2. ACES Knowledge Center</a></li>
@@ -161,7 +147,6 @@
 
                     </div>
                     <!-- /sidebar menu -->
-
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
                         <a data-toggle="tooltip" data-placement="top" title="Settings">
@@ -273,7 +258,6 @@
                 </div>
             </div>
             <!-- /top navigation -->
-
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="row">
@@ -289,7 +273,6 @@
             </div>
         </div>
         <!-- /page content -->
-
         <!-- footer content -->
         <footer>
             <div class="pull-right">
@@ -302,51 +285,51 @@
 
     <!-- jQuery -->
     <script src="~/gentelella/vendors/jquery/dist/jquery.min.js"></script>
-    
+
     <!-- Bootstrap -->
     <script src="~/gentelella/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- FastClick -->
     <script src="~/gentelella/vendors/fastclick/lib/fastclick.js"></script>
-    
+
     <!-- NProgress -->
     <script src="~/gentelella/vendors/nprogress/nprogress.js"></script>
-    
+
     <!-- Chart.js -->
     <script src="~/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
-    
+
     <!-- gauge.js -->
     <script src="~/gentelella/vendors/gauge.js/dist/gauge.min.js"></script>
-    
+
     <!-- bootstrap-progressbar -->
     <script src="~/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    
+
     <!-- iCheck -->
     <script src="~/gentelella/vendors/iCheck/icheck.min.js"></script>
-    
+
     <!-- Skycons -->
     <script src="~/gentelella/vendors/skycons/skycons.js"></script>
-    
+
     <!-- Flot -->
     <script src="~/gentelella/vendors/Flot/jquery.flot.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.time.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
     <script src="~/gentelella/vendors/Flot/jquery.flot.resize.js"></script>
-    
+
     <!-- Flot plugins -->
     <script src="~/gentelella/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
     <script src="~/gentelella/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
     <script src="~/gentelella/vendors/flot.curvedlines/curvedLines.js"></script>
-    
+
     <!-- DateJS -->
     <script src="~/gentelella/vendors/DateJS/build/date.js"></script>
-    
+
     <!-- JQVMap -->
     <script src="~/gentelella/vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="~/gentelella/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="~/gentelella/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    
+
     <!-- bootstrap-daterangepicker -->
     <script src="~/gentelella/vendors/moment/min/moment.min.js"></script>
     <script src="~/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>

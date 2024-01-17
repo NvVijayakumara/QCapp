@@ -4,6 +4,33 @@ using System.ComponentModel.DataAnnotations;
 
 namespace QCapp.ViewModels
 {
+    public class UserSiteDetailsViewModel
+    {
+        public string? FirstName { get; set; }
+
+        public string? MiddleName { get; set; }
+
+        public string? LastName { get; set; }
+
+        public List<UserLink> UserLinks { get; set; }
+    }
+    
+    public class UserLink
+    {
+        // menus
+        public int? MenuId { get; set; }
+        public string? MenuName { get; set; }
+        public int? ParentMenuId { get; set; }
+        public int? MenuOrder { get; set; }
+        public string? MenuCssClass { get; set; }
+
+        //menu links
+        public int? LinkId { get; set; }
+        public string? LinkName { get; set; }
+        public string? LinkHref { get; set; }
+        public int? LinkOrder { get; set; }
+    }
+
     public class UserViewModel : User
     {
         [DisplayName("Company Name")]

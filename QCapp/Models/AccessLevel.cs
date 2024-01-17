@@ -9,5 +9,7 @@ public partial class AccessLevel
 
     public string AccessLevelName { get; set; } = null!;
 
+    public virtual ICollection<UserAccessMenuMaping> UserAccessMenuMapings { get; set; } = new List<UserAccessMenuMaping>();
+
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

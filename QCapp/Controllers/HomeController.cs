@@ -3,6 +3,9 @@ using System.Diagnostics;
 using QCapp.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using QCapp.ViewModels;
+using static Azure.Core.HttpHeader;
 
 namespace QCapp.Controllers
 {
@@ -30,11 +33,39 @@ namespace QCapp.Controllers
             var claimUserId = claimsLookup["UserId"].FirstOrDefault();
             var claimAccessLevelId = claimsLookup["AccessLevelId"].FirstOrDefault();
 
-
             //get user details
             var user = _qcprojV1Context.Users.Where(x => x.UserId == int.Parse(claimUserId.Value)).FirstOrDefault();
 
-            return View(user);
+            //get menus, sub menus, and menu links filtered by access level id
+            var query = from m in _qcprojV1Context.Menus
+                        join ml in _qcprojV1Context.MenuLinks on m.MenuId equals ml.MenuId
+                        join uamm in _qcprojV1Context.UserAccessMenuMapings on ml.MenuLinkId equals uamm.MenuLinkId
+                        where uamm.AccessLevelId == user.AccessLevelId && ml.Active == true
+                        select new UserLink()
+                        {
+                            MenuId = m.MenuId,
+                            MenuName = m.MenuName,
+                            ParentMenuId = m.ParentMeenuId,
+                            MenuOrder =m.Order,
+                            MenuCssClass = m.CssClass,
+
+                            LinkId = ml.MenuLinkId,
+                            LinkName = ml.Name,
+                            LinkHref = ml.Href,
+                            LinkOrder = ml.Order,
+                        };
+
+            // 
+            var objUserSiteDetailsViewModel = new UserSiteDetailsViewModel()
+            {
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+
+                UserLinks = query.ToList()
+            };
+
+            return View(objUserSiteDetailsViewModel);
         }
 
         public IActionResult Privacy()
