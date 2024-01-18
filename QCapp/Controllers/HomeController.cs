@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using QCapp.ViewModels;
 using static Azure.Core.HttpHeader;
+using AutoMapper;
 
 namespace QCapp.Controllers
 {

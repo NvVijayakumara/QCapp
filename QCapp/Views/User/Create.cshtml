@@ -2,11 +2,10 @@
 
 @{
     ViewData["Title"] = (Model.UserId == null ? "Add User" : "Update User");
-    //Layout = "~/Views/Shared/_LayoutIn.cshtml";
-    //Layout = "~/Views/Shared/_Layout_In_frame.cshtml";
-    Layout = "~/Views/Shared/_Layout_In_frame.cshtml";
+    Layout = null;
 }
 
+<span class="section">@ViewBag.Title</span>
 <form asp-action="Create" novalidate>
 
     @* <div asp-validation-summary="All" class="text-danger"></div> *@

@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = (Model.ClientId == null ? "Add Client" : "Update Client");
-    Layout = "~/Views/Shared/_LayoutIn.cshtml";
+    Layout = null;
 }
 
+<span class="section">@ViewBag.Title</span>
 <form asp-action="Create" novalidate>
 
     <div class="field item form-group">

@@ -7,8 +7,6 @@ public partial class City
 {
     public int Id { get; set; }
 
-    public int? CountryId { get; set; }
-
     public int? StateId { get; set; }
 
     public string? CityName { get; set; }
@@ -20,8 +18,6 @@ public partial class City
     public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
 
     public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
-
-    public virtual Country? Country { get; set; }
 
     public virtual ICollection<Loan> Loans { get; set; } = new List<Loan>();
 

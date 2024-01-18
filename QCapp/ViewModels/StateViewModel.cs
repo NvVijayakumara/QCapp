@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace QCapp.ViewModels
 {
-    public class StateViewModel : State
+    public class StateViewModel
     {
-        [DisplayName("Country Name")]
-        public string? CountryName { get; set; }
+        public string? StateId { get; set; }
+        public string? StateName { get; set; }
     }
 }

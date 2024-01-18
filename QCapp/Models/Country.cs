@@ -9,11 +9,11 @@ public partial class Country
 
     public string? CountryName { get; set; }
 
-    public virtual ICollection<City> Cities { get; set; } = new List<City>();
-
     public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
 
-    public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
+    public virtual ICollection<Company> CompanyBillingAddressCountryNavigations { get; set; } = new List<Company>();
+
+    public virtual ICollection<Company> CompanyCompanyAddressCountryNavigations { get; set; } = new List<Company>();
 
     public virtual ICollection<State> States { get; set; } = new List<State>();
 

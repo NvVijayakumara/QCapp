@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,7 +33,7 @@ namespace QCapp
         {
             // custom 
             services.AddLogging();
-            //services.AddAutoMapper(typeof(Startup));  
+            services.AddAutoMapper(typeof(Startup));  
 
             services.AddDbContext<QcprojV1Context>(opts => 
                 opts.UseSqlServer(_configuration["ConnectionString:sqlConnection"]));
@@ -53,7 +54,9 @@ namespace QCapp
             });
 
             //
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(o => o.JsonSerializerOptions
+                .ReferenceHandler = ReferenceHandler.Preserve);
 
             //
             //services.AddMemoryCache();

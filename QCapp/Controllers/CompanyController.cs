@@ -1,11 +1,84 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using QCapp.Models;
 using QCapp.ViewModels;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace QCapp.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
+        private readonly IMapper _mapper;
+        private readonly ILogger _logger;
+        private readonly QcprojV1Context _qcprojV1Context;
+        private readonly IConfiguration _configuration;
+
+        public CompanyController(IMapper mapper, IConfiguration configuration, ILogger<AccountController> logger)
+        {
+            _mapper = mapper;
+            _configuration = configuration;
+            _logger = logger;
+
+            _qcprojV1Context = new QcprojV1Context(configuration);
+        }
+
+        public ActionResult Create()
+        {
+            var CountryList = _qcprojV1Context.Countries.ToList();
+            ViewBag.Country = new SelectList(CountryList, "Id", "CountryName");
+
+            return View();
+        }
+
+        public ActionResult GetStatesById(int Id)
+        {
+            var listState = _qcprojV1Context.States.Where(x => x.CountryId == Id).ToList();
+            var listStateViewModel = _mapper.Map<List<StateViewModel>>(listState);
+            
+            return Json(listStateViewModel);
+        }
+
+        public ActionResult GetCitiesById(int Id)
+        {
+            var listCity = _qcprojV1Context.Cities.Where(x => x.StateId == Id).ToList();
+            var listCityViewModel = _mapper.Map<List<CityViewModel>>(listCity);
+            
+            return Json(listCityViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateAsync(Company model)
+        {
+            try
+            {
+                model.BillingAdressSameAsCompany = Request.Form["BillingAdressSameAsCompany"] == "on" ? true : false;
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                //get user details
+                await _qcprojV1Context.Companies.AddAsync(model);
+                await _qcprojV1Context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Server Error");
+                _logger.LogError(ex, "Server Error");
+            }
+
+            return View(model);
+        }
+
         public ActionResult Index()
         {
             var listCompanyViewModel = new List<CompanyViewModel>();
@@ -33,26 +106,6 @@ namespace QCapp.Controllers
                 );
 
             return View(listCompanyViewModel);
-        }
-
-        public ActionResult Create()
-        {
-            var objCompanyViewModel = new CompanyViewModel();
-            return View(objCompanyViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         public ActionResult Edit(int id)

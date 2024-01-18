@@ -7,18 +7,10 @@ namespace QCapp.Models;
 public partial class QcprojV1Context : DbContext
 {
     public IConfiguration Configuration { get; }
-
     public QcprojV1Context(IConfiguration configuration)
     {
         Configuration = configuration;
     }
-
-    //public QcprojV1Context(DbContextOptions<QcprojV1Context> options)
-    //    : base(options)
-    //{
-    //    //ChangeTracker.LazyLoadingEnabled = false;
-    //}
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -29,6 +21,66 @@ public partial class QcprojV1Context : DbContext
                 .UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
         }
     }
+
+    //public QcprojV1Context(DbContextOptions<QcprojV1Context> options)
+    //    : base(options)
+    //{
+    //    //ChangeTracker.LazyLoadingEnabled = false;
+    //}
+
+    public virtual DbSet<AccessLevel> AccessLevels { get; set; }
+
+    public virtual DbSet<Audit> Audits { get; set; }
+
+    public virtual DbSet<AuditStatus> AuditStatuses { get; set; }
+
+    public virtual DbSet<AuditType> AuditTypes { get; set; }
+
+    public virtual DbSet<Billing> Billings { get; set; }
+
+    public virtual DbSet<Checklist> Checklists { get; set; }
+
+    public virtual DbSet<City> Cities { get; set; }
+
+    public virtual DbSet<Client> Clients { get; set; }
+
+    public virtual DbSet<Company> Companies { get; set; }
+
+    public virtual DbSet<Country> Countries { get; set; }
+
+    public virtual DbSet<DocumentConfiguration> DocumentConfigurations { get; set; }
+
+    public virtual DbSet<FieldConfiguration> FieldConfigurations { get; set; }
+
+    public virtual DbSet<Loan> Loans { get; set; }
+
+    public virtual DbSet<LoanOccupancy> LoanOccupancies { get; set; }
+
+    public virtual DbSet<LoanStatus> LoanStatuses { get; set; }
+
+    public virtual DbSet<LoanType> LoanTypes { get; set; }
+
+    public virtual DbSet<LoansFile> LoansFiles { get; set; }
+
+    public virtual DbSet<LoansFileUploadStatus> LoansFileUploadStatuses { get; set; }
+
+    public virtual DbSet<Menu> Menus { get; set; }
+
+    public virtual DbSet<MenuLink> MenuLinks { get; set; }
+
+    public virtual DbSet<Milestone> Milestones { get; set; }
+
+    public virtual DbSet<Process> Processes { get; set; }
+
+    public virtual DbSet<Questionnaire> Questionnaires { get; set; }
+
+    public virtual DbSet<State> States { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserAccessMenuMaping> UserAccessMenuMapings { get; set; }
+
+    public virtual DbSet<WorkFlowConfiguration> WorkFlowConfigurations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -136,10 +188,6 @@ public partial class QcprojV1Context : DbContext
             entity.Property(e => e.CityName).HasMaxLength(50);
             entity.Property(e => e.Zip).HasMaxLength(15);
 
-            entity.HasOne(d => d.Country).WithMany(p => p.Cities)
-                .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK_City_Country");
-
             entity.HasOne(d => d.State).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.StateId)
                 .HasConstraintName("FK_City_State");
@@ -187,10 +235,8 @@ public partial class QcprojV1Context : DbContext
             entity.HasIndex(e => e.CompanyId, "IX_Company").IsUnique();
 
             entity.Property(e => e.CompanyId).ValueGeneratedNever();
-            entity.Property(e => e.BillingAddressCity).HasMaxLength(25);
             entity.Property(e => e.BillingAddressLine1).HasMaxLength(250);
             entity.Property(e => e.BillingAddressLine2).HasMaxLength(250);
-            entity.Property(e => e.BillingAddressState).HasMaxLength(25);
             entity.Property(e => e.BillingAddressZip).HasMaxLength(25);
             entity.Property(e => e.BillingEmailAddress).HasMaxLength(50);
             entity.Property(e => e.CompanyAddressLine1).HasMaxLength(250);
@@ -204,11 +250,15 @@ public partial class QcprojV1Context : DbContext
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
+            entity.HasOne(d => d.BillingAddressCountryNavigation).WithMany(p => p.CompanyBillingAddressCountryNavigations)
+                .HasForeignKey(d => d.BillingAddressCountry)
+                .HasConstraintName("FK_Company_Country1");
+
             entity.HasOne(d => d.CompanyAddressCityNavigation).WithMany(p => p.Companies)
                 .HasForeignKey(d => d.CompanyAddressCity)
                 .HasConstraintName("FK_Company_City");
 
-            entity.HasOne(d => d.CompanyAddressCountryNavigation).WithMany(p => p.Companies)
+            entity.HasOne(d => d.CompanyAddressCountryNavigation).WithMany(p => p.CompanyCompanyAddressCountryNavigations)
                 .HasForeignKey(d => d.CompanyAddressCountry)
                 .HasConstraintName("FK_Company_Country");
 
@@ -503,8 +553,6 @@ public partial class QcprojV1Context : DbContext
 
             entity.ToTable("UserAccessMenuMaping");
 
-            entity.Property(e => e.MappingId).ValueGeneratedNever();
-
             entity.HasOne(d => d.AccessLevel).WithMany(p => p.UserAccessMenuMapings)
                 .HasForeignKey(d => d.AccessLevelId)
                 .HasConstraintName("FK_UserAccessMenuMaping_AccessLevel");
@@ -535,59 +583,4 @@ public partial class QcprojV1Context : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-
-    public virtual DbSet<AccessLevel> AccessLevels { get; set; }
-
-    public virtual DbSet<Audit> Audits { get; set; }
-
-    public virtual DbSet<AuditStatus> AuditStatuses { get; set; }
-
-    public virtual DbSet<AuditType> AuditTypes { get; set; }
-
-    public virtual DbSet<Billing> Billings { get; set; }
-
-    public virtual DbSet<Checklist> Checklists { get; set; }
-
-    public virtual DbSet<City> Cities { get; set; }
-
-    public virtual DbSet<Client> Clients { get; set; }
-
-    public virtual DbSet<Company> Companies { get; set; }
-
-    public virtual DbSet<Country> Countries { get; set; }
-
-    public virtual DbSet<DocumentConfiguration> DocumentConfigurations { get; set; }
-
-    public virtual DbSet<FieldConfiguration> FieldConfigurations { get; set; }
-
-    public virtual DbSet<Loan> Loans { get; set; }
-
-    public virtual DbSet<LoanOccupancy> LoanOccupancies { get; set; }
-
-    public virtual DbSet<LoanStatus> LoanStatuses { get; set; }
-
-    public virtual DbSet<LoanType> LoanTypes { get; set; }
-
-    public virtual DbSet<LoansFile> LoansFiles { get; set; }
-
-    public virtual DbSet<LoansFileUploadStatus> LoansFileUploadStatuses { get; set; }
-
-    public virtual DbSet<Menu> Menus { get; set; }
-
-    public virtual DbSet<MenuLink> MenuLinks { get; set; }
-
-    public virtual DbSet<Milestone> Milestones { get; set; }
-
-    public virtual DbSet<Process> Processes { get; set; }
-
-    public virtual DbSet<Questionnaire> Questionnaires { get; set; }
-
-    public virtual DbSet<State> States { get; set; }
-
-    public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<UserAccessMenuMaping> UserAccessMenuMapings { get; set; }
-
-    public virtual DbSet<WorkFlowConfiguration> WorkFlowConfigurations { get; set; }
 }

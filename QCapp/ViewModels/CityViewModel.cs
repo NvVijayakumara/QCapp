@@ -3,12 +3,10 @@ using System.ComponentModel;
 
 namespace QCapp.ViewModels
 {
-    public class CityViewModel : City
+    public class CityViewModel
     {
-        [DisplayName("Country Name")]
-        public string? CountryName { get; set; }
+        public int? CityId { get; set; }
 
-        [DisplayName("State Name")]
-        public string? StateName { get; set; }
+        public string? CityName { get; set; }
     }
 }

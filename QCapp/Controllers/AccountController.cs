@@ -71,7 +71,8 @@ namespace QCapp.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unexpected exception occurred in Login.");
+                ModelState.AddModelError("", "Server Error");
+                _logger.LogError(ex, "Server Error");
             }
 
             return View(model);
