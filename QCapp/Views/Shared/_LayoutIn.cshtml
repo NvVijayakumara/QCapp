@@ -83,7 +83,7 @@
                                     int menuSeerialNo = 1;
                                     foreach (var menuItem in Model.UserLinks
                                     .Where(x => string.IsNullOrWhiteSpace(x.ParentMenuId.ToString()) == true)
-                                    .OrderBy(x => x.MenuOrder ?? x.MenuId )
+                                    .OrderBy(x => x.MenuOrder ?? x.MenuId)
                                     .Select(x => new { x.MenuId, x.MenuName, x.MenuCssClass })
                                     .Distinct()
                                     .ToList())
@@ -96,18 +96,18 @@
                                                     int menuLinkSeerialNo = 1;
                                                     foreach (var menuLinkItem in Model.UserLinks
                                                     .Where(x => x.MenuId == menuItem.MenuId)
-                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId )
+                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId)
                                                     .Select(x => new { x.LinkId, x.LinkName, x.LinkHref })
                                                     .Distinct()
                                                     .ToList())
                                                     {
-                                                        <li><a href="@menuLinkItem.LinkHref">@(menuLinkSeerialNo++). @menuLinkItem.LinkName</a></li>
+                                                        <li><a data-tab-link href="@menuLinkItem.LinkHref">@(menuLinkSeerialNo++). @menuLinkItem.LinkName</a></li>
                                                     }
 
                                                     // sub menus
                                                     foreach (var subMenuItem in Model.UserLinks
                                                     .Where(x => x.ParentMenuId == menuItem.MenuId)
-                                                    .OrderBy(x => x.MenuOrder ?? x.MenuId )
+                                                    .OrderBy(x => x.MenuOrder ?? x.MenuId)
                                                     .Select(x => new { x.MenuId, x.MenuName, x.MenuCssClass })
                                                     .Distinct()
                                                     .ToList())
@@ -119,12 +119,12 @@
                                                                     int subMenuLinkSeerialNo = 1;
                                                                     foreach (var subMenuLinkItem in Model.UserLinks
                                                                     .Where(x => x.MenuId == menuItem.MenuId)
-                                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId )
+                                                                    .OrderBy(x => x.LinkOrder ?? x.LinkId)
                                                                     .Select(x => new { x.LinkId, x.LinkName, x.LinkHref })
                                                                     .Distinct()
                                                                     .ToList())
                                                                     {
-                                                                        <li class="sub_menu"><a href="@subMenuLinkItem.LinkHref">@(subMenuLinkSeerialNo++). @subMenuLinkItem.LinkName</a></li>
+                                                                        <li data-tab-link class="sub_menu"><a href="@subMenuLinkItem.LinkHref">@(subMenuLinkSeerialNo++). @subMenuLinkItem.LinkName</a></li>
                                                                     }
                                                                 }
                                                             </ul>
@@ -258,16 +258,15 @@
                 </div>
             </div>
             <!-- /top navigation -->
+
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <div class="x_panel">
-                            <div class="x_content">
-                                <span class="section">@ViewBag.Title</span>
-                                @RenderBody()
-                            </div>
-                        </div>
+                        <iframe id="frmSrc" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                        @{
+                            IgnoreBody();
+                        }
                     </div>
                 </div>
             </div>
@@ -346,5 +345,17 @@
     <script src="~/gentelella/build/js/custom.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+            $('a[data-tab-link]').click(function (e) {
+                e.preventDefault();
+                var href = $(this).attr('href');
+                $('#frmSrc').attr('src', href);
+            });
+        });
+    </script>
+
 </body>
 </html>
