@@ -234,7 +234,6 @@ public partial class QcprojV1Context : DbContext
 
             entity.HasIndex(e => e.CompanyId, "IX_Company").IsUnique();
 
-            entity.Property(e => e.CompanyId).ValueGeneratedNever();
             entity.Property(e => e.BillingAddressLine1).HasMaxLength(250);
             entity.Property(e => e.BillingAddressLine2).HasMaxLength(250);
             entity.Property(e => e.BillingAddressZip).HasMaxLength(25);
