@@ -6,7 +6,7 @@
 }
 
 <span class="section">@ViewBag.Title</span>
-<form id="quickForm" asp-action="Create" novalidate>
+<form id="quickForm" asp-action="Create" enctype="multipart/form-data" method="post" novalidate>
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -174,7 +174,6 @@
         if (this.checked)
             $('form .alert').remove();
     }).prop('checked', false);
-
 </script>
 
 <script>
@@ -306,5 +305,31 @@
         } else {
             console.log("Please select a State.");
         }
+    });
+</script>
+
+<script type="text/javascript">
+    $('#quickForm').submit(function (e) {
+        e.preventDefault();
+
+        var formData = new FormData($(this)[0]);
+        console.log('formData');
+        console.log(formData);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Company/Create',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log('success');
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('error');
+                console.log(data);
+            }
+        });
     });
 </script>

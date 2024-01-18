@@ -63,7 +63,7 @@ namespace QCapp.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return View(model);
+                    return BadRequest(ModelState);
                 }
 
                 //get user details
@@ -72,11 +72,13 @@ namespace QCapp.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Server Error");
                 _logger.LogError(ex, "Server Error");
+                
+                ModelState.AddModelError("", "Server Error");
+                return BadRequest(ModelState);
             }
 
-            return View(model);
+            return Ok(model.CompanyId);
         }
 
         public ActionResult Index()
